@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block title %}Tecnico{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+
+    <button type="submit" class="btn btn-dark">Enviar</button>
+
+    <a href="/tecnicos/" class="btn btn-dark">Voltar</a>
+</form>
+
+{% endblock %}

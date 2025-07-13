@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Equipamentos',  # Adicionando o app Equipamentos
+    'Tecnicos',  # Adicionando o app Tecnicos
+    'Pecas',  # Adicionando o app Pecas
 ]
 
 MIDDLEWARE = [

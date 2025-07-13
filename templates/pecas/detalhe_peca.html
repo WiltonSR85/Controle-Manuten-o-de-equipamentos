@@ -1,0 +1,24 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Detalhe peça</h1>
+
+    <div class="table-responsive shadow rounded">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr><th>Nome da peça</th scope="col"><td>{{ peca.nome_da_peca }}</td></tr>
+                <tr><th>Código</th scope="col"><td>{{ peca.codigo }}</td></tr>
+                <tr><th>Fabricante</th scope="col"><td>{{ peca.fabricante }}</td></tr>
+                <tr><th>Estoque</th scope="col"><td>{{ peca.estoque }}</td></tr>
+                <tr><th>Data da Última Compra</th scope="col"><td>{{ peca.data_da_ultima_compra }}</td></tr>
+            </thead>
+        </table>
+    </div>
+
+    <br>
+    <a href="/pecas/">
+        <button class="btn btn-dark">Voltar</button>
+    </a>
+</div>
+{% endblock %}
