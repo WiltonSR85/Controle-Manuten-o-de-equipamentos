@@ -12,6 +12,24 @@
                 <tr><th>Fabricante</th scope="col"><td>{{ peca.fabricante }}</td></tr>
                 <tr><th>Estoque</th scope="col"><td>{{ peca.estoque }}</td></tr>
                 <tr><th>Data da Última Compra</th scope="col"><td>{{ peca.data_da_ultima_compra }}</td></tr>
+                <tr>
+                    <th>Manutenções</th>
+                    <td>
+                        {% if peca.pecasmanutencao_set.exists %}
+                            <ul class="list-unstyled mb-0">
+                                {% for relacao in peca.pecasmanutencao_set.all %}
+                                    <li>
+                                        <a href="{% url 'detalhe_manutencao' relacao.ordem_manutencao.id %}">
+                                            {{ relacao.ordem_manutencao.numero_ordem }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <em>Sem manutenção associada</em>
+                        {% endif %}
+                    </td>
+                </tr>
             </thead>
         </table>
     </div>

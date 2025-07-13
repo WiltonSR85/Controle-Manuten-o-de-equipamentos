@@ -13,6 +13,24 @@
                 <tr><th>Fabricante</th scope="col"><td>{{ equipamento.fabricante }}</td></tr>
                 <tr><th>Data de Aquisição</th scope="col"><td>{{ equipamento.data_aquisicao }}</td></tr>
                 <tr><th>Status</th scope="col"><td>{{ equipamento.status }}</td></tr>
+                <tr>
+                    <th>Setores</th>
+                    <td>
+                        {% if equipamento.setores.exists %}
+                            <ul class="list-unstyled mb-0">
+                                {% for setor in equipamento.setores.all %}
+                                    <li>
+                                        <a href="{% url 'detalhe_setor' setor.id %}">
+                                            {{ setor.nome }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <em>Sem setor associado</em>
+                        {% endif %}
+                    </td>
+                </tr>
             </thead>
         </table>
     </div>

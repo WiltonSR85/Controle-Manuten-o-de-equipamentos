@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Gerenciar Pecas necessarias na Manutencao</h1>
+
+    <div class="card p-4 shadow rounded mb-4">
+        <h2>Adicionar Novo Relacionamento</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-3">Salvar Relação</button>
+        </form>
+    </div>
+
+    <h2>Relações Existentes</h2>
+    <div class="table-responsive shadow rounded">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Manutencao</th>
+                    <th>Peca</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for relacao in peca_manutencao %}
+                <tr>
+                    <td>{{ relacao.ordem_manutencao.numero_ordem }}</td>
+                    <td>{{ relacao.peca.nome_da_peca }}</td>
+                    <td>
+                        <a href="#" class="btn btn-sm btn-danger">Remover</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-center">Nenhuma relação encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

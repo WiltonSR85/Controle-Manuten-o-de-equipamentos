@@ -14,6 +14,12 @@ class Equipamento(models.Model):
     ]
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='ativo')
 
+    setores = models.ManyToManyField(
+        'Setores.Setor',
+        through='Setores.EquipamentoSetor',
+        related_name='equipamentos'
+    )
+
     def __str__(self):
         return f"{self.nome} ({self.modelo})"
 

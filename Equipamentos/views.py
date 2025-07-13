@@ -9,10 +9,15 @@ def listar_equipamentos(request):
     return render(request, 'equipamentos/listar_equipamentos.html', {'equipamentos': equipamentos} )
 
 def detalhe_equipamento(request, id):
-    equipamento= Equipamento.objects.get(id=id)
+    equipamento = (
+        Equipamento.objects
+        .prefetch_related('setores')          # ➋  traz todos os setores juntos
+        .get(id=id)
+    )
 
-    return render(request, 'equipamentos/detalhe_equipamento.html', {'equipamento': equipamento} )
-
+    return render(request,
+                  'equipamentos/detalhe_equipamento.html',
+                  {'equipamento': equipamento})
 def criar_equipamento(request):
 
     form=EquipamentoForm()

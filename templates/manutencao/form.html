@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block title %}Manutencao{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{form}}
+
+    <button type="submit" class="btn btn-dark">Enviar</button>
+
+    <a href="/manutencoes/" class="btn btn-dark">Voltar</a>
+</form>
+
+{% endblock %}

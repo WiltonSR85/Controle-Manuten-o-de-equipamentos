@@ -1,0 +1,44 @@
+{% extends "_base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Detalhe Ordens de manutenção</h1>
+
+    <div class="table-responsive shadow rounded">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr><th>numero de ordem</th scope="col"><td>{{ manutencao.numero_ordem }}</td></tr>
+                <tr><th>data_solicitacao</th scope="col"><td>{{ manutencao.data_solicitacao }}</td></tr>
+                <tr><th>Tipo</th scope="col"><td>{{ manutencao.tipo }}</td></tr>
+                <tr><th>descricao_problema</th scope="col"><td>{{ manutencao.descricao_problema }}</td></tr>
+                <tr><th>Status</th scope="col"><td>{{ manutencao.status }}</td></tr>
+                <tr><th>equipamento</th scope="col"><td>{{ manutencao.equipamento }}</td></tr>
+                <tr><th>tecnico_responsavel</th scope="col"><td>{{ manutencao.tecnico_responsavel }}</td></tr>
+                    <th>Peças utilizadas</th>
+                    <td>
+                        {% if manutencao.pecas.all %}
+                            <ul class="list-unstyled mb-0">
+                                {% for relacao in manutencao.pecas.all %}
+                                    <li>
+                                        <a href="{% url 'detalhe_peca' relacao.peca.id %}">
+                                            {{ relacao.peca.nome_da_peca }}
+                                        </a>
+                                        ({{ relacao.quantidade }})
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <em>Nenhuma peça associada.</em>
+                        {% endif %}
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <br>
+    <a href="/manutencoes/">
+        <button class="btn btn-dark">Voltar</button>
+    </a>
+</div>
+{% endblock %}

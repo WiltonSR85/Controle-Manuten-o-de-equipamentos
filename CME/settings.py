@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'Equipamentos',  # Adicionando o app Equipamentos
     'Tecnicos',  # Adicionando o app Tecnicos
     'Pecas',  # Adicionando o app Pecas
+    'Manutencoes',  # Adicionando o app Manutencoes
+    'Setores',  # Adicionando o app Setores
+
 ]
 
 MIDDLEWARE = [
