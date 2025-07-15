@@ -26,8 +26,8 @@ urlpatterns = [
     path('pecas/<int:id>/', peca_views.detalhe_peca, name='detalhe_peca'),
     path('editarpeca/<int:id>/', peca_views.edit_peca, name='edit_peca'), 
     path('criarpeca/', peca_views.criar_peca, name='criar_peca'), 
-    # Viws de Manutencoes
     path('deletepeca/<int:id>/', peca_views.delete_peca, name='delete_peca'),
+    # Views de Manutencoes
     path('manutencoes/', manutencao_views.listar_manutencoes, name='listar_manutencoes'),
     path('manutencoes/<int:id>/', manutencao_views.detalhe_manutencao, name='detalhe_manutencao'),
     path('editmanutencao/<int:id>/', manutencao_views.edit_manutencao, name='edit_manutencao'),
