@@ -52,14 +52,6 @@ class EquipamentoForm(forms.ModelForm):
         })
     )
 
-    setores = forms.ModelMultipleChoiceField(
-        queryset=Equipamento.setores.field.related_model.objects.all(),
-        label='Setores',
-        widget=forms.SelectMultiple(attrs={
-            'class': 'form-control'
-        })
-    )
-
     class Meta:
         model = Equipamento
         fields = ['nome', 'modelo', 'numero_serie', 'fabricante', 'data_aquisicao', 'status']

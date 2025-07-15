@@ -46,8 +46,6 @@ class PecasManutencao(models.Model):
         related_name="pecas"
     )
     peca = models.ForeignKey('Pecas.Peca', on_delete=models.CASCADE)
-    quantidade = models.PositiveIntegerField("Quantidade")
-    custo_unitario = models.DecimalField("Custo Unitário", max_digits=10, decimal_places=2)
 
     class Meta:
         unique_together = ('ordem_manutencao', 'peca')
@@ -55,4 +53,4 @@ class PecasManutencao(models.Model):
         verbose_name_plural = "Peças de Manutenção"
     
     def __str__(self):
-        return f"{self.peca} - {self.quantidade} unidades"
+        return f"{self.peca}"

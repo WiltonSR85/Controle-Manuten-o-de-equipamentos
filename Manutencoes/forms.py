@@ -85,24 +85,6 @@ class PecasManutencaoForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
-    quantidade = forms.IntegerField(
-        label='Quantidade',
-        widget=forms.NumberInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite a quantidade'
-        })
-    )
-
-    custo_unitario = forms.DecimalField(
-        label='Custo Unitário',
-        max_digits=10,
-        decimal_places=2,
-        widget=forms.NumberInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite o custo unitário'
-        })
-    )
-
     class Meta:
         model = PecasManutencao
-        fields = ['ordem_manutencao', 'peca', 'quantidade', 'custo_unitario']
+        fields = ['ordem_manutencao', 'peca']

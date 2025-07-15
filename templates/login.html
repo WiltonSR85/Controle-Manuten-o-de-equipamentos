@@ -17,7 +17,8 @@
     <style>
         body {
             font-family: 'Nunito', sans-serif;
-            background-color: #121925; 
+            background-color: #121925;
+            margin: 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -29,16 +30,17 @@
             border-radius: 15px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
             overflow: hidden;
-            width: 100%;
             max-width: 900px;
-        }
-
-        .login-form {
-            padding: 3rem;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            flex-direction: row;
         }
 
         .login-image {
             background-color: #0d1117;
+            width: 50%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -48,14 +50,20 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            padding: 0;
+        }
+
+        .login-form {
+            width: 50%;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .form-control {
             border-radius: 25px;
             padding: 15px 20px;
             border: 2px solid #e9ecef;
-            transition: all 0.3s ease;
         }
 
         .form-control:focus {
@@ -64,18 +72,17 @@
         }
 
         .btn-login {
-            background: #0d6efd;
+            background-color: #121925;
             border: none;
             border-radius: 25px;
             padding: 15px;
             font-weight: 600;
             letter-spacing: 1px;
-            transition: all 0.3s ease;
+            color: white;
         }
 
         .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+            background-color: #1c2737;
         }
 
         .welcome-title {
@@ -92,64 +99,79 @@
         .alert {
             border-radius: 10px;
         }
+
+        .link-personalizado {
+            color: #121925;
+            text-decoration: none;
+        }
+
+        .link-personalizado:hover {
+            color: #1c2737;
+        }
+
+        @media (max-width: 991px) {
+            .login-container {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .login-image {
+                width: 100%;
+                height: 250px;
+            }
+
+            .login-form {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
 <body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="login-container">
-                <div class="row g-0">
-                    <!-- Coluna com a imagem -->
-                    <div class="col-lg-6 d-none d-lg-block login-image">
-                        <img src="{% static 'img/Gerenciamento.png' %}" alt="Controle de Equipamentos">
-                    </div>
+    <div class="login-container">
+        <!-- Coluna com imagem -->
+        <div class="login-image">
+            <img src="{% static 'img/Gerenciamento.png' %}" alt="Controle de Equipamentos">
+        </div>
 
-                    <!-- Coluna com o formulário -->
-                    <div class="col-lg-6">
-                        <div class="login-form">
-                            <div class="text-center mb-4">
-                                <h1 class="welcome-title">Bem-vindo de volta!</h1>
-                                <p class="welcome-subtitle">Faça login para acessar sua conta</p>
-                            </div>
+        <!-- Coluna com formulário -->
+        <div class="login-form">
+            <div class="text-center mb-4">
+                <h1 class="welcome-title">Bem-vindo de volta!</h1>
+                <p class="welcome-subtitle">Faça login para acessar sua conta</p>
+            </div>
 
-                            {% if form.errors %}
-                                <div class="alert alert-danger">
-                                    Usuário ou senha inválidos.
-                                </div>
-                            {% endif %}
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                Usuário ou senha inválidos.
+            </div>
+            {% endif %}
 
-                            <form method="POST">
-                                {% csrf_token %}
-                                <div class="mb-3">
-                                    <input type="text" name="username" class="form-control" placeholder="Usuário" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="password" name="password" class="form-control" placeholder="Senha" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-login w-100" style="background-color: #121925; border:none; color: white;">
-                                    <i class="fas fa-sign-in-alt me-2"></i> Entrar
-                                </button>
-                            </form>
-
-                            <hr class="my-4">
-                            <div class="text-center">
-                                <a class="text-decoration-none" href="#" style="color: #121925;">Esqueceu a senha?</a>
-                            </div>
-                            <div class="text-center mt-2">
-                                <a class="text-decoration-none" href="#" style="color: #121925;">Criar uma conta</a>
-                            </div>
-
-                        </div>
-                    </div>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="Usuário" required>
                 </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn btn-login w-100">
+                    <i class="fas fa-sign-in-alt me-2"></i> Entrar
+                </button>
+            </form>
+
+            <hr class="my-4">
+
+            <div class="text-center">
+                <a class="link-personalizado" href="#">Esqueceu a senha?</a>
+            </div>
+            <div class="text-center mt-2">
+                <a class="link-personalizado" href="#">Criar uma conta</a>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

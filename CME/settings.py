@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'Pecas',  # Adicionando o app Pecas
     'Manutencoes',  # Adicionando o app Manutencoes
     'Setores',  # Adicionando o app Setores
+    'accounts',  # App para autenticação
 
 ]
 
