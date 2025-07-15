@@ -2,11 +2,12 @@ from django import forms
 from .models import Setor
 from Equipamentos.models import Equipamento
 from Setores.models import EquipamentoSetor
+from .models import Setor
 
 class SetorForm(forms.ModelForm):
     class Meta:
         model = Setor
-        fields = ['nome', 'responsavel', 'localizacao']
+        fields = ['nome', 'tecnico_responsavel', 'localizacao']
 
     nome = forms.CharField(
         label='Nome do Setor',
@@ -16,11 +17,11 @@ class SetorForm(forms.ModelForm):
         })
     )
 
-    responsavel = forms.CharField(
-        label='Responsavel pelo setor',
-        widget=forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Digite o responsável pelo setor'
+    tecnico_responsavel = forms.ModelChoiceField(
+        label='Técnico Responsável',
+        queryset=Setor.tecnico_responsavel.field.related_model.objects.all(),
+        widget=forms.Select(attrs={
+            'class': 'form-control'
         })
     )
 

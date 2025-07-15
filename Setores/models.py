@@ -1,8 +1,15 @@
 from django.db import models
+from Tecnicos.models import Tecnico
 
 class Setor(models.Model):
     nome = models.CharField(max_length=100)
-    responsavel = models.CharField(max_length=100)
+    
+    tecnico_responsavel = models.ForeignKey(
+        Tecnico,
+        on_delete=models.CASCADE,
+        related_name="setores_responsaveis"
+    )
+
     localizacao = models.CharField(max_length=100)
 
 
