@@ -15,7 +15,7 @@ class OrdemManutencao(models.Model):
     ]
 
     numero_ordem       = models.CharField("Número da Ordem", max_length=20, unique=True, blank=True)
-    data_solicitacao   = models.DateField("Data da Solicitação")
+    data_solicitacao   = models.DateField("Data da Solicitação", auto_now_add=True)
     tipo               = models.CharField("Tipo", max_length=10, choices=TIPO_CHOICES)
     descricao_problema = models.TextField("Descrição do Problema")
     status             = models.CharField("Status", max_length=12, choices=STATUS_CHOICES, default="Pendente")

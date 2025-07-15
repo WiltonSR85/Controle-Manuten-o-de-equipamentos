@@ -5,15 +5,6 @@ from .models import PecasManutencao
 
 class OrdemManutencaoForm(forms.ModelForm):
 
-    data_solicitacao = forms.DateField(
-        label='Data da Solicitação',
-        widget=forms.DateInput(attrs={
-            'class': 'form-control',
-            'type': 'date',
-            'placeholder': 'Selecione a data da solicitação'
-        })
-    )
-
     tipo = forms.ChoiceField(
         label='Tipo',
         choices=OrdemManutencao.TIPO_CHOICES,
@@ -58,7 +49,7 @@ class OrdemManutencaoForm(forms.ModelForm):
 
     class Meta:
         model = OrdemManutencao
-        fields = ['data_solicitacao', 'tipo', 'descricao_problema', 'status', 'equipamento', 'tecnico_responsavel']
+        fields = ['tipo', 'descricao_problema', 'status', 'equipamento', 'tecnico_responsavel']
         widgets = {
             'numero_ordem': forms.TextInput(attrs={'class': 'form-control'}),
             'descricao_problema': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
