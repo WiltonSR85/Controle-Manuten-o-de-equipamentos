@@ -13,8 +13,6 @@
             <thead class="table-dark">
                 <tr>
                     <th>Nome</th>
-                    <th>Modelo</th>
-                    <th>Número de série</th>
                     <th>Fabricante</th>
                     <th>Data de Aquisição</th>
                     <th>Status</th>
@@ -25,8 +23,6 @@
                 {% for equipamento in equipamentos %}
                 <tr>
                     <td>{{ equipamento.nome }}</td>
-                    <td>{{ equipamento.modelo }}</td>
-                    <td>{{ equipamento.numero_serie }}</td>
                     <td>{{ equipamento.fabricante }}</td>
                     <td>{{ equipamento.data_aquisicao }}</td>
                     <td>{{ equipamento.status }}</td>
@@ -39,7 +35,7 @@
                             <i class="fas fa-edit"></i>
                         </a>
 
-                        <a href="/equipamentos/deleteequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-danger">
+                        <a href="/equipamentos/deleteequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-danger"  onclick="return confirm('Tem certeza que deseja excluir este equipamento?');">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
