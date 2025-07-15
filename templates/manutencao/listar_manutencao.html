@@ -5,7 +5,7 @@
     <h1 class="mb-4">Lista de Ordens de manutencoes</h1>
 
     <div class="mb-3">
-        <a href="{% url 'criar_manutencao' %}" class="btn btn-success">
+        <a href="/criar_manutencao/" class="btn btn-success">
             <i class="fas fa-plus"></i> Adicionar manutencao
         </a>
     </div>
@@ -33,9 +33,17 @@
                     <td>{{ manutencao.data_solicitacao }}</td>
                     <td>{{ manutencao.tecnico_responsavel }}</td>
                     <td>
-                        <a href="/manutencoes/{{ manutencao.id }}/" class="btn btn-sm btn-primary">Ver</a>
-                        <a href="/editmanutencao/{{ manutencao.id }}/" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/deletemanutencao/{{ manutencao.id }}/" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="/manutencoes/{{ manutencao.id }}/" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <a href="/manutencoes/editmanutencao/{{ manutencao.id }}/" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <a href="/manutencoes/deletemanutencao/{{ manutencao.id }}/" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% empty %}

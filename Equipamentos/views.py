@@ -1,13 +1,16 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Equipamento
 from .forms import EquipamentoForm
 
+@login_required
 def listar_equipamentos(request):
     equipamentos= Equipamento.objects.all()
 
     return render(request, 'equipamentos/listar_equipamentos.html', {'equipamentos': equipamentos} )
 
+@login_required
 def detalhe_equipamento(request, id):
     equipamento = (
         Equipamento.objects
@@ -16,8 +19,9 @@ def detalhe_equipamento(request, id):
     )
 
     return render(request,
-                  'equipamentos/detalhe_equipamento.html',
-                  {'equipamento': equipamento})
+                  'equipamentos/detalhe_equipamento.html', {'equipamento': equipamento})
+
+@login_required
 def criar_equipamento(request):
 
     form=EquipamentoForm()
@@ -31,7 +35,7 @@ def criar_equipamento(request):
     
     return render(request, 'equipamentos/form.html', {'form': form})
 
-
+@login_required
 def edit_equipamento(request, id):
 
     equipamento= Equipamento.objects.get(id=id)
@@ -47,6 +51,7 @@ def edit_equipamento(request, id):
 
     return render(request, 'equipamentos/form.html', {'form': form})
 
+@login_required
 def delete_equipamento(request, id):
     
     equipamento= Equipamento.objects.get(id=id)

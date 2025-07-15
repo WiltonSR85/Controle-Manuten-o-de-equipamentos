@@ -1,18 +1,22 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Tecnico
 from .forms import TecnicoForm
 
+@login_required
 def listar_tecnicos(request):
     tecnicos = Tecnico.objects.all()
 
     return render(request, 'tecnicos/listar_tecnicos.html', {'tecnicos': tecnicos} )
 
+@login_required
 def detalhe_tecnico(request, id):
     tecnico = Tecnico.objects.get(id=id)
 
     return render(request, 'tecnicos/detalhe_tecnico.html', {'tecnico': tecnico})
 
+@login_required
 def criar_tecnico(request):
 
     form = TecnicoForm()
@@ -26,7 +30,7 @@ def criar_tecnico(request):
 
     return render(request, 'tecnicos/form.html', {'form': form})
 
-
+@login_required
 def edit_tecnico(request, id):
 
     tecnico = Tecnico.objects.get(id=id)
@@ -42,6 +46,7 @@ def edit_tecnico(request, id):
 
     return render(request, 'tecnicos/form.html', {'form': form})
 
+@login_required
 def delete_tecnico(request, id):
 
     tecnico = Tecnico.objects.get(id=id)

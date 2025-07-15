@@ -5,7 +5,7 @@
     <h1 class="mb-4">Lista de Equipamentos</h1>
 
     <div class="mb-3">
-        <a href="/criarequipamento/" class="btn btn-success"> <i class="fas fa-plus"></i> Adicionar Equipamento </a>
+        <a href="/equipamentos/criarequipamento/" class="btn btn-success"> <i class="fas fa-plus"></i> Adicionar Equipamento </a>
     </div>
 
     <div class="table-responsive shadow rounded">
@@ -31,9 +31,17 @@
                     <td>{{ equipamento.data_aquisicao }}</td>
                     <td>{{ equipamento.status }}</td>
                     <td>
-                        <a href="/equipamentos/{{ equipamento.id }}/" class="btn btn-sm btn-primary">Ver</a>
-                        <a href="/editequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/deleteequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="/equipamentos/{{ equipamento.id }}/" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <a href="/equipamentos/editequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <a href="/equipamentos/deleteequipamento/{{ equipamento.id }}/" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% empty %}

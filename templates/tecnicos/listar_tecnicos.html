@@ -5,7 +5,7 @@
     <h1 class="mb-4">Lista de Técnicos</h1>
 
     <div class="mb-3">
-        <a href="/criartecnico/" class="btn btn-success"> <i class="fas fa-plus"></i> Adicionar Técnico </a>
+        <a href="/tecnicos/criartecnico/" class="btn btn-success shadow-lg"> <i class="fas fa-plus"></i> Adicionar Técnico </a>
     </div>
 
     <div class="table-responsive shadow rounded">
@@ -27,9 +27,17 @@
                     <td>{{ tecnico.contato }}</td>
                     <td>{{ tecnico.certificacoes }}</td>
                     <td>
-                        <a href="/tecnicos/{{ tecnico.id }}/" class="btn btn-sm btn-primary">Ver</a>
-                        <a href="/edittecnico/{{ tecnico.id }}/" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/deletetecnico/{{ tecnico.id }}/" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="/tecnicos/{{ tecnico.id }}/" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <a href="/tecnicos/edittecnico/{{ tecnico.id }}/" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <a href="/tecnicos/deletetecnico/{{ tecnico.id }}/" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% empty %}

@@ -5,7 +5,7 @@
     <h1 class="mb-4">Lista de setores</h1>
 
     <div class="mb-3">
-        <a href="{% url 'criar_setor' %}" class="btn btn-success">
+        <a href="/setores/criar_setor" class="btn btn-success">
             <i class="fas fa-plus"></i> Adicionar setores
         </a>
     </div>
@@ -27,9 +27,17 @@
                     <td>{{ setor.tecnico_responsavel }}</td>
                     <td>{{ setor.localizacao }}</td>
                     <td>
-                        <a href="/setores/{{ setor.id }}/" class="btn btn-sm btn-primary">Ver</a>
-                        <a href="/editsetor/{{ setor.id }}/" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/deletesetor/{{ setor.id }}/" class="btn btn-sm btn-danger">Excluir</a>
+                        <a href="/setores/{{ setor.id }}/" class="btn btn-sm btn-primary">
+                            <i class="fas fa-eye"></i>
+                        </a>
+
+                        <a href="/setores/editsetor/{{ setor.id }}/" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i>
+                        </a>
+
+                        <a href="/setores/deletesetor/{{ setor.id }}/" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
                 {% empty %}

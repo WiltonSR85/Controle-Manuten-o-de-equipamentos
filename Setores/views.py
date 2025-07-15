@@ -1,19 +1,23 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import Setor
 from .forms import SetorForm
 from Setores.models import EquipamentoSetor
 from .forms import EquipamentoSetorForm
 from django.urls import reverse
 
+@login_required
 def listar_setores(request):
     setores = Setor.objects.prefetch_related('equipamentosetor_set__equipamento').all()
     return render(request, 'setores/listar_setores.html', {'setores': setores})
     
+@login_required
 def detalhe_setor(request, id):
     setor = Setor.objects.get(id=id)
     return render(request, 'setores/detalhe_setor.html', {'setor': setor})
 
+@login_required
 def criar_setor(request):
     form = SetorForm()
     if request.method == 'POST':
@@ -26,6 +30,7 @@ def criar_setor(request):
     
     return render(request, 'setores/form.html', {'form': form})
 
+@login_required
 def edit_setor(request, id):
     setor = Setor.objects.get(id=id)
     form = SetorForm(instance=setor)
@@ -40,11 +45,13 @@ def edit_setor(request, id):
 
     return render(request, 'setores/form.html', {'form': form})
 
+@login_required
 def delete_setor(request, id):
     setor = Setor.objects.get(id=id)
     setor.delete()
     return HttpResponseRedirect('/setores/')
 
+@login_required
 def gerenciar_setor_equipamento(request):
     equipamentos_setores = EquipamentoSetor.objects.select_related('equipamento', 'setor').all()
     form = EquipamentoSetorForm()

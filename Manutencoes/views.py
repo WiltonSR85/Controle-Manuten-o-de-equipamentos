@@ -1,19 +1,23 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from .models import OrdemManutencao
 from .forms import OrdemManutencaoForm
 from .models import PecasManutencao
 from .forms import PecasManutencaoForm
 from django.urls import reverse
 
+@login_required
 def listar_manutencoes(request):
     manutencoes = OrdemManutencao.objects.select_related("equipamento").all().order_by("-data_solicitacao")
     return render(request, 'manutencao/listar_manutencao.html', {'manutencoes': manutencoes} )
 
+@login_required
 def detalhe_manutencao(request, id):
     manutencao = OrdemManutencao.objects.get(id=id)
     return render(request, 'manutencao/detalhe_manutencao.html', {'manutencao': manutencao} )
 
+@login_required
 def criar_manutencao(request):
     form = OrdemManutencaoForm()
     if request.method == 'POST':
@@ -26,6 +30,7 @@ def criar_manutencao(request):
     
     return render(request, 'manutencao/form.html', {'form': form})
 
+@login_required
 def edit_manutencao(request, id):
     manutencao = OrdemManutencao.objects.get(id=id)
     form = OrdemManutencaoForm(instance=manutencao)
@@ -39,12 +44,15 @@ def edit_manutencao(request, id):
         form = OrdemManutencaoForm(instance=manutencao)
 
     return render(request, 'manutencao/form.html', {'form': form})
+
+@login_required
 def delete_manutencao(request, id):
     
     manutencao= OrdemManutencao.objects.get(id=id)
     manutencao.delete()
     return HttpResponseRedirect('/manutencoes/')
 
+@login_required
 def gerenciar_pecas_manutencao(request):
     peca_manutencao = PecasManutencao.objects.select_related('ordem_manutencao', 'peca').all()
     form = PecasManutencaoForm()
