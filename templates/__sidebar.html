@@ -39,14 +39,16 @@
 
         <hr class="sidebar-divider">
 
-        <li class="nav-item {% if request.path == '/tecnicos' %}active{% endif %}">
-          <a href="/tecnicos">
-            <i class="fas fa-user-cog"></i>
-            <p>Técnicos</p>
-          </a>
-        </li>
+        {% if 'Tecnicos.view_tecnico' in request.user.get_all_permissions %}
+          <li class="nav-item {% if request.path == '/tecnicos' %}active{% endif %}">
+            <a href="/tecnicos">
+              <i class="fas fa-user-cog"></i>
+              <p>Técnicos</p>
+            </a>
+          </li>
 
-        <hr class="sidebar-divider">
+          <hr class="sidebar-divider">
+        {% endif %}
 
         <li class="nav-item">
           <a href="/setores">
@@ -75,14 +77,17 @@
         
         <hr class="sidebar-divider">
 
-        <li class="nav-item">
-          <a href="/accounts">
-            <i class="fas fa-users"></i>
-            <p>Usuários</p>
-          </a>
-        </li>
-        
+        {% if 'auth.view_user' in request.user.get_all_permissions %}
+          <li class="nav-item {% if request.path == '/accounts' %}active{% endif %}">
+            <a href="/accounts">
+              <i class="fas fa-users"></i>
+              <p>Usuários</p>
+            </a>
+          </li>
+
         <hr class="sidebar-divider">
+        
+        {% endif %}
       </ul>
     </div>
   </div>

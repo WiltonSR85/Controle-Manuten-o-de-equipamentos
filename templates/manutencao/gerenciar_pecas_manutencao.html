@@ -34,7 +34,7 @@
                     <td>{{ relacao.ordem_manutencao.numero_ordem }}</td>
                     <td>{{ relacao.peca.nome_da_peca }}</td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-danger">Remover</a>
+                        <a href="/delete_pecas_manutencao/{{ relacao.id }}" class="btn btn-sm btn-danger">Remover</a>
                     </td>
                 </tr>
                 {% empty %}
