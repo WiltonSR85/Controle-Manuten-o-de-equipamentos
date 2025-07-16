@@ -49,3 +49,7 @@ O sistema permitirá o cadastro de equipamentos, setores, técnicos, peças, ord
 - Caso não haja usuários cadastrados, utilize o comando `createsuperuser` para criar um usuário administrador.
 - Usuários predefinidos podem ser informados pelo administrador do sistema.
 - O acesso ao painel administrativo está disponível em [http://localhost:8000/admin/](http://localhost:8000/admin/).
+
+## Link do vídeo 
+
+LINK:[Trabalho Final WEB I](https://youtu.be/K3mj4tiFAeQ)
