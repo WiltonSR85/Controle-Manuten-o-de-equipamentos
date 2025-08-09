@@ -1,64 +1,44 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
 from .models import Equipamento
 from .forms import EquipamentoForm
 
-@login_required
-@permission_required('Equipamentos.view_equipamento', raise_exception=True)
-def listar_equipamentos(request):
-    equipamentos= Equipamento.objects.all()
+class EquipamentoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model= Equipamento
+    template_name = 'equipamentos/listar_equipamentos.html'
+    context_object_name= 'equipamentos'
+    permission_required = 'Equipamentos.view_equipamento'
+    raise_exception = True
 
-    return render(request, 'equipamentos/listar_equipamentos.html', {'equipamentos': equipamentos} )
+class EquipamentoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model = Equipamento
+    template_name = 'equipamentos/detalhe_equipamento.html'
+    context_object_name = 'equipamento'
+    permission_required = 'Equipamentos.view_equipamento'
+    raise_exception = True
 
-@login_required
-@permission_required('Equipamentos.view_equipamento', raise_exception=True)
-def detalhe_equipamento(request, id):
-    equipamento = (
-        Equipamento.objects
-        .prefetch_related('setores')          
-        .get(id=id)
-    )
+class EquipamentoCreateView(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model = Equipamento
+    form_class = EquipamentoForm
+    template_name = 'equipamentos/form.html'
+    permission_required = 'Equipamentos.add_equipamento'
+    success_url = reverse_lazy('listar_equipamentos')
 
-    return render(request,
-                  'equipamentos/detalhe_equipamento.html', {'equipamento': equipamento})
+class EquipamentoUpdateView(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Equipamento
+    form_class = EquipamentoForm
+    template_name = 'equipamentos/form.html'
+    permission_required = 'Equipamentos.change_equipamento'
+    success_url = reverse_lazy('listar_equipamentos')
 
-@login_required
-@permission_required('Equipamentos.add_equipamento', raise_exception=True)
-def criar_equipamento(request):
-
-    form=EquipamentoForm()
-    if request.method == 'POST':
-        form=EquipamentoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/equipamentos/')
-    else:
-        form=EquipamentoForm()
-    
-    return render(request, 'equipamentos/form.html', {'form': form})
-
-@login_required
-@permission_required('Equipamentos.change_equipamento', raise_exception=True)
-def edit_equipamento(request, id):
-
-    equipamento= Equipamento.objects.get(id=id)
-    form=EquipamentoForm(instance=equipamento)
-
-    if request.method == 'POST':
-        form=EquipamentoForm(request.POST, instance=equipamento)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/equipamentos/')
-    else:
-        form=EquipamentoForm(instance=equipamento)
-
-    return render(request, 'equipamentos/form.html', {'form': form})
-
-@login_required
-@permission_required('Equipamentos.delete_equipamento', raise_exception=True)
-def delete_equipamento(request, id):
-    
-    equipamento= Equipamento.objects.get(id=id)
-    equipamento.delete()
-    return HttpResponseRedirect('/equipamentos/')
+class EquipamentoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Equipamento
+    template_name = 'equipamentos/confirmar_exclusao.html'
+    context_object_name = 'equipamento'
+    permission_required = 'Equipamentos.delete_equipamento'
+    success_url = reverse_lazy('listar_equipamentos')

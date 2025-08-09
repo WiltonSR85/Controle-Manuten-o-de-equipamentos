@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
 from Equipamentos import views as equipamento_views
+from .views import EquipamentoListView, EquipamentoDetailView, EquipamentoCreateView, EquipamentoUpdateView, EquipamentoDeleteView
 
 urlpatterns = [
-    path('', equipamento_views.listar_equipamentos, name='listar_equipamentos'),
-    path('<int:id>/', equipamento_views.detalhe_equipamento, name='detalhe_equipamento'),
-    path('editequipamento/<int:id>/', equipamento_views.edit_equipamento, name='edit_equipamento'), 
-    path('criarequipamento/', equipamento_views.criar_equipamento, name='criar_equipamento'), 
-    path('deleteequipamento/<int:id>/', equipamento_views.delete_equipamento, name='delete_equipamento'), 
+    path('', EquipamentoListView.as_view(), name='listar_equipamentos'),
+    path('<int:pk>/', EquipamentoDetailView.as_view(), name='detalhe_equipamento'),
+    path('editequipamento/<int:pk>/', EquipamentoUpdateView.as_view(), name='edit_equipamento'), 
+    path('criarequipamento/', EquipamentoCreateView.as_view(), name='criar_equipamento'), 
+    path('deleteequipamento/<int:pk>/', EquipamentoDeleteView.as_view(), name='delete_equipamento'), 
 ]

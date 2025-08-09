@@ -21,6 +21,7 @@ urlpatterns = [
     # Gerenciar Equipamentos nos Setores
     path('gerenciar_setor_equipamento/', Setores_views.gerenciar_setor_equipamento, name='gerenciar_setor_equipamento'),
     path('delete_setor_equipamento/<int:id>/', Setores_views.delete_setor_equipamento, name='delete_setor_equipamento'),
+    
     # Gerenciar Pecas de Manutencao
     path('gerenciar_pecas_manutencao/', manutencao_views.gerenciar_pecas_manutencao, name='gerenciar_pecas_manutencao'),
     path('delete_pecas_manutencao/<int:id>/', manutencao_views.delete_peca_manutencao, name='delete_pecas_manutencao'),
