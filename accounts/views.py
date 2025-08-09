@@ -1,6 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomUserCreationForm, CustomUserChangeForm
 from django.contrib.auth.models import User 
@@ -11,6 +10,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 def listar_usuarios(request):
     usuarios= User.objects.all()
     return render(request  , 'accounts/listar_usuarios.html', {'usuarios': usuarios})
+    
 
 @login_required
 @permission_required('accounts.view_user', raise_exception=True)
@@ -21,7 +21,7 @@ def criar_usuario(request):
             form.save()
             return redirect('listar_usuarios')
     else:
-        form = CustomUserCreationForm()  # exibe o formulário vazio para GET
+        form = CustomUserCreationForm()  
 
     return render(request, 'accounts/criar_usuario.html', {'form': form})
 

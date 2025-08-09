@@ -6,56 +6,44 @@ from .forms import OrdemManutencaoForm
 from .models import PecasManutencao
 from .forms import PecasManutencaoForm
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
-@login_required
-@permission_required('Manutencoes.view_ordemmanutencao', raise_exception=True)
-def listar_manutencoes(request):
-    manutencoes = OrdemManutencao.objects.select_related("equipamento").all().order_by("-data_solicitacao")
-    return render(request, 'manutencao/listar_manutencao.html', {'manutencoes': manutencoes} )
+class ManutencaoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model= OrdemManutencao
+    template_name = 'manutencao/listar_manutencao.html'
+    context_object_name= 'manutencoes'
+    permission_required = 'Manutencoes.view_ordemmanutencao'
+    raise_exception = True
 
-@login_required
-@permission_required('Manutencoes.view_ordemmanutencao', raise_exception=True)
-def detalhe_manutencao(request, id):
-    manutencao = OrdemManutencao.objects.get(id=id)
-    return render(request, 'manutencao/detalhe_manutencao.html', {'manutencao': manutencao} )
+class ManutencaoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model= OrdemManutencao
+    template_name = 'manutencao/detalhe_manutencao.html'
+    context_object_name= 'manutencao'
+    permission_required = 'Manutencoes.view_ordemmanutencao'
+    raise_exception = True
 
-@login_required
-@permission_required('Manutencoes.add_ordemmanutencao', raise_exception=True)
-def criar_manutencao(request):
-    form = OrdemManutencaoForm()
-    if request.method == 'POST':
-        form = OrdemManutencaoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/manutencoes/')
-    else:
-        form = OrdemManutencaoForm()
-    
-    return render(request, 'manutencao/form.html', {'form': form})
+class ManutencaoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model= OrdemManutencao
+    form_class = OrdemManutencaoForm
+    template_name = 'manutencao/form.html'
+    permission_required = 'Manutencoes.add_ordemmanutencao'
+    success_url = reverse_lazy('listar_manutencoes')
 
-@login_required
-@permission_required('Manutencoes.change_ordemmanutencao', raise_exception=True)
-def edit_manutencao(request, id):
-    manutencao = OrdemManutencao.objects.get(id=id)
-    form = OrdemManutencaoForm(instance=manutencao)
+class ManutencaoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model= OrdemManutencao
+    form_class = OrdemManutencaoForm
+    template_name = 'manutencao/form.html'
+    permission_required = 'Manutencoes.change_ordemmanutencao'
+    success_url = reverse_lazy('listar_manutencoes')
 
-    if request.method == 'POST':
-        form = OrdemManutencaoForm(request.POST, instance=manutencao)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/manutencoes/')
-    else:
-        form = OrdemManutencaoForm(instance=manutencao)
-
-    return render(request, 'manutencao/form.html', {'form': form})
-
-@login_required
-@permission_required('Manutencoes.delete_ordemmanutencao', raise_exception=True)
-def delete_manutencao(request, id):
-    
-    manutencao= OrdemManutencao.objects.get(id=id)
-    manutencao.delete()
-    return HttpResponseRedirect('/manutencoes/')
+class ManutencaoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = OrdemManutencao
+    template_name = 'manutencao/confirmar_exclusao.html'
+    context_object_name = 'manutencao'
+    permission_required = 'Manutencoes.delete_ordemmanutencao'
+    success_url = reverse_lazy('listar_manutencoes')
 
 @login_required
 @permission_required('Manutencoes.view_pecasmanutencao', raise_exception=True)
