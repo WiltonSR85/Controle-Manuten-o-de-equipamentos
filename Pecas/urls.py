@@ -1,10 +1,9 @@
 from django.urls import path
-from Pecas import views as peca_views
-
+from .views import PecaListView, PecaDetailView, PecaCreateView, PecaUpdateView, PecaDeleteView
 urlpatterns = [
-    path('', peca_views.listar_pecas, name='listar_pecas'),
-    path('<int:id>/', peca_views.detalhe_peca, name='detalhe_peca'),
-    path('editarpeca/<int:id>/', peca_views.edit_peca, name='edit_peca'), 
-    path('criarpeca/', peca_views.criar_peca, name='criar_peca'), 
-    path('deletepeca/<int:id>/', peca_views.delete_peca, name='delete_peca'),
+    path('', PecaListView.as_view(), name='listar_pecas'),
+    path('<int:pk>/', PecaDetailView.as_view(), name='detalhe_peca'),
+    path('editarpeca/<int:pk>/', PecaUpdateView.as_view(), name='edit_peca'), 
+    path('criarpeca/', PecaCreateView.as_view(), name='criar_peca'), 
+    path('deletepeca/<int:pk>/', PecaDeleteView.as_view(), name='delete_peca'),
 ]

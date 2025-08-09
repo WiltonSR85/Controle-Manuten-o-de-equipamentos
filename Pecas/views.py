@@ -3,52 +3,37 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import Peca
 from .forms import PecaForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
-@login_required
-@permission_required('Pecas.view_peca', raise_exception=True)
-def listar_pecas(request):
-    pecas = Peca.objects.all()
+class PecaListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model= Peca
+    template_name = 'pecas/listar_pecas.html'
+    context_object_name= 'pecas'
+    permission_required = 'Pecas.view_peca'
+    raise_exception = True
 
-    return render(request, 'pecas/listar_pecas.html', {'pecas': pecas})
+class PecaDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model= Peca
+    template_name = 'pecas/detalhe_peca.html'
+    context_object_name= 'peca'
+    permission_required = 'Pecas.view_peca'
+    raise_exception = True
 
-@login_required
-@permission_required('Pecas.view_peca', raise_exception=True)
-def detalhe_peca(request, id):
-    peca = Peca.objects.get(id=id)
+class PecaCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model= Peca
+    form_class = PecaForm
+    template_name = 'pecas/form.html'
+    permission_required = 'Pecas.add_peca'
+    success_url = reverse_lazy('listar_pecas')
 
-    return render(request, 'pecas/detalhe_peca.html', {'peca': peca})
-
-@login_required
-@permission_required('Pecas.add_peca', raise_exception=True)
-def criar_peca(request):
-
-    form = PecaForm()
-    if request.method == 'POST':
-        form = PecaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/pecas/')
-    else:
-        form = PecaForm()
-
-    return render(request, 'pecas/form.html', {'form': form})
-
-@login_required
-@permission_required('Pecas.change_peca', raise_exception=True)
-def edit_peca(request, id):
-
-    peca = Peca.objects.get(id=id)
-    form = PecaForm(instance=peca)
-
-    if request.method == 'POST':
-        form = PecaForm(request.POST, instance=peca)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/pecas/')
-    else:
-        form = PecaForm(instance=peca)
-
-    return render(request, 'pecas/form.html', {'form': form})
+class PecaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model= Peca
+    form_class = PecaForm
+    template_name = 'pecas/form.html'
+    permission_required = 'Pecas.change_peca'
+    success_url = reverse_lazy('listar_pecas')
 
 @login_required
 @permission_required('Pecas.delete_peca', raise_exception=True)
@@ -57,3 +42,10 @@ def delete_peca(request, id):
     peca = Peca.objects.get(id=id)
     peca.delete()
     return HttpResponseRedirect('/pecas/')
+
+class PecaDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model= Peca
+    template_name = 'pecas/confirmar_exclusao.html'
+    context_object_name = 'peca'
+    permission_required = 'Pecas.delete_peca'
+    success_url = reverse_lazy('listar_pecas')

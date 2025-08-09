@@ -22,14 +22,14 @@ class EquipamentoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailV
     permission_required = 'Equipamentos.view_equipamento'
     raise_exception = True
 
-class EquipamentoCreateView(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class EquipamentoCreateView( LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Equipamento
     form_class = EquipamentoForm
     template_name = 'equipamentos/form.html'
     permission_required = 'Equipamentos.add_equipamento'
     success_url = reverse_lazy('listar_equipamentos')
 
-class EquipamentoUpdateView(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class EquipamentoUpdateView( LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Equipamento
     form_class = EquipamentoForm
     template_name = 'equipamentos/form.html'
