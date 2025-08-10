@@ -3,57 +3,41 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required, permission_required
 from .models import Tecnico
 from .forms import TecnicoForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
-@login_required
-@permission_required('Tecnicos.view_tecnico', raise_exception=True)
-def listar_tecnicos(request):
-    tecnicos = Tecnico.objects.all()
+class TecnicoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model= Tecnico
+    template_name = 'tecnicos/listar_tecnicos.html'
+    context_object_name= 'tecnicos'
+    permission_required = 'Tecnicos.view_tecnico'
+    raise_exception = True
 
-    return render(request, 'tecnicos/listar_tecnicos.html', {'tecnicos': tecnicos} )
+class TecnicoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model= Tecnico
+    template_name = 'tecnicos/detalhe_tecnico.html'
+    context_object_name= 'tecnico'
+    permission_required = 'Tecnicos.view_tecnico'
+    raise_exception = True
 
-@login_required
-@permission_required('Tecnicos.view_tecnico', raise_exception=True)
-def detalhe_tecnico(request, id):
-    tecnico = Tecnico.objects.get(id=id)
+class TecnicoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model= Tecnico
+    form_class = TecnicoForm
+    template_name = 'tecnicos/form.html'
+    permission_required = 'Tecnicos.add_tecnico'
+    success_url = reverse_lazy('listar_tecnicos')
 
-    return render(request, 'tecnicos/detalhe_tecnico.html', {'tecnico': tecnico})
+class TecnicoUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model= Tecnico
+    form_class = TecnicoForm
+    template_name = 'tecnicos/form.html'
+    permission_required = 'Tecnicos.change_tecnico'
+    success_url = reverse_lazy('listar_tecnicos')
 
-@login_required
-@permission_required('Tecnicos.add_tecnico', raise_exception=True)
-def criar_tecnico(request):
-
-    form = TecnicoForm()
-    if request.method == 'POST':
-        form = TecnicoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/tecnicos/')
-    else:
-        form = TecnicoForm()
-
-    return render(request, 'tecnicos/form.html', {'form': form})
-
-@login_required
-@permission_required('Tecnicos.change_tecnico', raise_exception=True)
-def edit_tecnico(request, id):
-
-    tecnico = Tecnico.objects.get(id=id)
-    form = TecnicoForm(instance=tecnico)
-
-    if request.method == 'POST':
-        form = TecnicoForm(request.POST, instance=tecnico)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/tecnicos/')
-    else:
-        form = TecnicoForm(instance=tecnico)
-
-    return render(request, 'tecnicos/form.html', {'form': form})
-
-@login_required
-@permission_required('Tecnicos.delete_tecnico', raise_exception=True)
-def delete_tecnico(request, id):
-
-    tecnico = Tecnico.objects.get(id=id)
-    tecnico.delete()
-    return HttpResponseRedirect('/tecnicos/')
+class TecnicoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model= Tecnico
+    template_name = 'tecnicos/confirmar_exclusao.html'
+    context_object_name = 'tecnico'
+    permission_required = 'Tecnicos.delete_tecnico'
+    success_url = reverse_lazy('listar_tecnicos')
