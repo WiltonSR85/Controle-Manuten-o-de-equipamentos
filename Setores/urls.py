@@ -1,10 +1,11 @@
 from django.urls import path
 from Setores import views as Setores_views
+from .views import SetorListView, SetorDetailView, SetorCreateView, SetorUpdateView, SetorDeleteView
 
 urlpatterns = [
-    path('', Setores_views.listar_setores, name='listar_setores'),
-    path('<int:id>/', Setores_views.detalhe_setor, name='detalhe_setor'),
-    path('editsetor/<int:id>/', Setores_views.edit_setor, name='edit_setor'),
-    path('criar_setor/', Setores_views.criar_setor, name='criar_setor'),
-    path('deletesetor/<int:id>/', Setores_views.delete_setor, name='delete_setor'),
+    path('', SetorListView.as_view(), name='listar_setores'),
+    path('<int:pk>/', SetorDetailView.as_view(), name='detalhe_setor'),
+    path('editsetor/<int:pk>/', SetorUpdateView.as_view(), name='edit_setor'),
+    path('criar_setor/', SetorCreateView.as_view(), name='criar_setor'),
+    path('deletesetor/<int:pk>/', SetorDeleteView.as_view(), name='delete_setor'),
 ]

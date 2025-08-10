@@ -6,55 +6,45 @@ from .forms import SetorForm
 from Setores.models import EquipamentoSetor
 from .forms import EquipamentoSetorForm
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView,DeleteView
+from django.urls import reverse_lazy
 
-@login_required
-@permission_required('Setores.view_setor', raise_exception=True)
-def listar_setores(request):
-    setores = Setor.objects.prefetch_related('equipamentosetor_set__equipamento').all()
-    return render(request, 'setores/listar_setores.html', {'setores': setores})
+class SetorListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    model= Setor
+    template_name = 'setores/listar_setores.html'
+    context_object_name= 'setores'
+    permission_required = 'Setores.view_setor'
+    raise_exception = True
     
-@login_required
-@permission_required('Setores.view_setor', raise_exception=True)
-def detalhe_setor(request, id):
-    setor = Setor.objects.get(id=id)
-    return render(request, 'setores/detalhe_setor.html', {'setor': setor})
 
-@login_required
-@permission_required('Setores.add_setor', raise_exception=True)
-def criar_setor(request):
-    form = SetorForm()
-    if request.method == 'POST':
-        form = SetorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/setores/')
-    else:
-        form = SetorForm()
-    
-    return render(request, 'setores/form.html', {'form': form})
+class SetorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model= Setor
+    template_name = 'setores/detalhe_setor.html'
+    context_object_name= 'setor'
+    permission_required = 'Setores.view_setor'
+    raise_exception = True
 
-@login_required
-@permission_required('Setores.change_setor', raise_exception=True)
-def edit_setor(request, id):
-    setor = Setor.objects.get(id=id)
-    form = SetorForm(instance=setor)
+class SetorCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    model= Setor
+    form_class = SetorForm
+    template_name = 'setores/form.html'
+    permission_required = 'Setores.add_setor'
+    success_url = reverse_lazy('listar_setores')
 
-    if request.method == 'POST':
-        form = SetorForm(request.POST, instance=setor)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/setores/')
-    else:
-        form = SetorForm(instance=setor)
+class SetorUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model= Setor
+    form_class = SetorForm
+    template_name = 'setores/form.html'
+    permission_required = 'Setores.change_setor'
+    success_url = reverse_lazy('listar_setores')
 
-    return render(request, 'setores/form.html', {'form': form})
-
-@login_required
-@permission_required('Setores.delete_setor', raise_exception=True)
-def delete_setor(request, id):
-    setor = Setor.objects.get(id=id)
-    setor.delete()
-    return HttpResponseRedirect('/setores/')
+class SetorDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model= Setor
+    template_name = 'setores/confirmar_exclusao.html'
+    context_object_name = 'setor'
+    permission_required = 'Setores.delete_setor'
+    success_url = reverse_lazy('listar_setores')
 
 @login_required
 @permission_required('Setores.add_equipamentosetor', raise_exception=True)
