@@ -60,7 +60,7 @@ ROOT_URLCONF = 'CME.urls'
 
 LOGIN_REDIRECT_URL = '/equipamentos/'
 LOGOUT_REDIRECT_URL = '/login/' 
-LOGIN_URL = 'login' 
+LOGIN_URL = '/login/' 
 
 TEMPLATES = [
     {

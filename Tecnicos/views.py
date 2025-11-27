@@ -12,14 +12,14 @@ class TecnicoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'tecnicos/listar_tecnicos.html'
     context_object_name= 'tecnicos'
     permission_required = 'Tecnicos.view_tecnico'
-    raise_exception = True
+    raise_exception = False
 
 class TecnicoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model= Tecnico
     template_name = 'tecnicos/detalhe_tecnico.html'
     context_object_name= 'tecnico'
     permission_required = 'Tecnicos.view_tecnico'
-    raise_exception = True
+    raise_exception = False
 
 class TecnicoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model= Tecnico

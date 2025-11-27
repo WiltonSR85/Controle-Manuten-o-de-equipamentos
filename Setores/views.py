@@ -15,7 +15,7 @@ class SetorListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'setores/listar_setores.html'
     context_object_name= 'setores'
     permission_required = 'Setores.view_setor'
-    raise_exception = True
+    raise_exception = False
     
 
 class SetorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
@@ -23,7 +23,7 @@ class SetorDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     template_name = 'setores/detalhe_setor.html'
     context_object_name= 'setor'
     permission_required = 'Setores.view_setor'
-    raise_exception = True
+    raise_exception = False
 
 class SetorCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model= Setor
@@ -47,8 +47,8 @@ class SetorDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('listar_setores')
 
 @login_required
-@permission_required('Setores.add_equipamentosetor', raise_exception=True)
-@permission_required('Setores.view_equipamentosetor', raise_exception=True)
+@permission_required('Setores.add_equipamentosetor', raise_exception=False)
+@permission_required('Setores.view_equipamentosetor', raise_exception=False)
 def gerenciar_setor_equipamento(request):
     equipamentos_setores = EquipamentoSetor.objects.select_related('equipamento', 'setor').all()
     form = EquipamentoSetorForm()
@@ -65,7 +65,7 @@ def gerenciar_setor_equipamento(request):
     })
 
 @login_required
-@permission_required('Setores.delete_equipamentosetor', raise_exception=True)
+@permission_required('Setores.delete_equipamentosetor', raise_exception=False)
 def delete_setor_equipamento(request, id):
     equipamento_setor = EquipamentoSetor.objects.get(id=id)
     equipamento_setor.delete()

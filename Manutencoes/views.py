@@ -15,14 +15,14 @@ class ManutencaoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'manutencao/listar_manutencao.html'
     context_object_name= 'manutencoes'
     permission_required = 'Manutencoes.view_ordemmanutencao'
-    raise_exception = True
+    raise_exception = False
 
 class ManutencaoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model= OrdemManutencao
     template_name = 'manutencao/detalhe_manutencao.html'
     context_object_name= 'manutencao'
     permission_required = 'Manutencoes.view_ordemmanutencao'
-    raise_exception = True
+    raise_exception = False
 
 class ManutencaoCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model= OrdemManutencao
@@ -46,9 +46,9 @@ class ManutencaoDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteVi
     success_url = reverse_lazy('listar_manutencoes')
 
 @login_required
-@permission_required('Manutencoes.view_pecasmanutencao', raise_exception=True)
-@permission_required('Manutencoes.add_pecasmanutencao', raise_exception=True)
-@permission_required('Manutencoes.change_pecasmanutencao', raise_exception=True)
+@permission_required('Manutencoes.view_pecasmanutencao', raise_exception=False)
+@permission_required('Manutencoes.add_pecasmanutencao', raise_exception=False)
+@permission_required('Manutencoes.change_pecasmanutencao', raise_exception=False)
 def gerenciar_pecas_manutencao(request):
     peca_manutencao = PecasManutencao.objects.select_related('ordem_manutencao', 'peca').all()
     form = PecasManutencaoForm()
@@ -65,7 +65,7 @@ def gerenciar_pecas_manutencao(request):
     })
 
 @login_required
-@permission_required('Manutencoes.delete_pecasmanutencao', raise_exception=True)
+@permission_required('Manutencoes.delete_pecasmanutencao', raise_exception=False)
 def delete_peca_manutencao(request, id):
     peca_manutencao = PecasManutencao.objects.get(id=id)
     peca_manutencao.delete()

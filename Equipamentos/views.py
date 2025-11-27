@@ -13,14 +13,14 @@ class EquipamentoListView(LoginRequiredMixin, PermissionRequiredMixin, ListView)
     template_name = 'equipamentos/listar_equipamentos.html'
     context_object_name= 'equipamentos'
     permission_required = 'Equipamentos.view_equipamento'
-    raise_exception = True
+    raise_exception = False
 
 class EquipamentoDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Equipamento
     template_name = 'equipamentos/detalhe_equipamento.html'
     context_object_name = 'equipamento'
     permission_required = 'Equipamentos.view_equipamento'
-    raise_exception = True
+    raise_exception = False
 
 class EquipamentoCreateView( LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Equipamento

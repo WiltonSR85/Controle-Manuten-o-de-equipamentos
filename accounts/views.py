@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, permission_required
 
 @login_required
-@permission_required('accounts.view_user', raise_exception=True)
+@permission_required('accounts.view_user', raise_exception=False)
 def listar_usuarios(request):
     usuarios= User.objects.all()
     return render(request  , 'accounts/listar_usuarios.html', {'usuarios': usuarios})
     
 
 @login_required
-@permission_required('accounts.view_user', raise_exception=True)
+@permission_required('accounts.view_user', raise_exception=False)
 def criar_usuario(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -27,7 +27,7 @@ def criar_usuario(request):
 
 
 @login_required
-@permission_required('accounts.view_user', raise_exception=True)
+@permission_required('accounts.view_user', raise_exception=False)
 def editar_usuario(request, user_id): 
     usuario = get_object_or_404(User, pk=user_id)
 
@@ -43,7 +43,7 @@ def editar_usuario(request, user_id):
 
 
 @login_required
-@permission_required('accounts.view_user', raise_exception=True)
+@permission_required('accounts.view_user', raise_exception=False)
 def excluir_usuario(request, user_id):
     usuario = get_object_or_404(User, pk=user_id)
 

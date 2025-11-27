@@ -12,14 +12,14 @@ class PecaListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'pecas/listar_pecas.html'
     context_object_name= 'pecas'
     permission_required = 'Pecas.view_peca'
-    raise_exception = True
+    raise_exception = False
 
 class PecaDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model= Peca
     template_name = 'pecas/detalhe_peca.html'
     context_object_name= 'peca'
     permission_required = 'Pecas.view_peca'
-    raise_exception = True
+    raise_exception = False
 
 class PecaCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model= Peca
@@ -36,7 +36,7 @@ class PecaUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('listar_pecas')
 
 @login_required
-@permission_required('Pecas.delete_peca', raise_exception=True)
+@permission_required('Pecas.delete_peca', raise_exception=False)
 def delete_peca(request, id):
 
     peca = Peca.objects.get(id=id)
