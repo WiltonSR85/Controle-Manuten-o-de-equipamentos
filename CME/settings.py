@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'Manutencoes',  # Adicionando o app Manutencoes
     'Setores',  # Adicionando o app Setores
     'accounts',  # App para autenticação
+    'rest_framework',  # Adicionando o Django REST framework
+    'drf_yasg',  # Adicionando o drf-yasg para documentação da API
 
 ]
 
@@ -134,3 +136,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configurações do Django REST framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
