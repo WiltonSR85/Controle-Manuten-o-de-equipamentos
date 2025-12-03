@@ -19,22 +19,28 @@ O sistema permitirá o cadastro de equipamentos, setores, técnicos, peças, ord
    - Clone o repositório ou extraia os arquivos.
    - Acesse a pasta do projeto pelo terminal.
 
-3. **Execute as migrações**:
+3. **Instalação das dependências**:
+   - Instale todas as dependências do projeto com:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+4. **Execute as migrações**:
    ```sh
    python manage.py migrate
    ```
 
-4. **Crie um superusuário ( para acessar o admin)**:
+5. **Crie um superusuário ( para acessar o admin)**:
    ```sh
    python manage.py createsuperuser
    ```
 
-5. **Inicie o servidor de desenvolvimento**:
+6. **Inicie o servidor de desenvolvimento**:
    ```sh
    python manage.py runserver
    ```
 
-6. **Acesse o sistema**:
+7. **Acesse o sistema**:
    - Abra o navegador e acesse: [http://localhost:8000/](http://localhost:8000/)
 
 ## Integrantes do Grupo
