@@ -50,6 +50,52 @@ O sistema permitirá o cadastro de equipamentos, setores, técnicos, peças, ord
 - Usuários predefinidos podem ser informados pelo administrador do sistema.
 - O acesso ao painel administrativo está disponível em [http://localhost:8000/admin/](http://localhost:8000/admin/).
 
+
+## API RESTful (Django Rest Framework)
+
+O projeto expõe uma API RESTful completa e segura, desenvolvida com Django Rest Framework (DRF) e autenticação JWT.
+
+### Principais Recursos da API
+
+- **Autenticação JWT:**  
+  Endpoints protegidos exigem token JWT para acesso.  
+  Obtenha o token via `/api/token/` e renove via `/api/token/refresh/`.
+
+- **CRUD Completo:**  
+  Operações de cadastro, consulta, edição e exclusão para Equipamentos, Setores, Técnicos, Peças e Ordens de Manutenção.
+
+- **Models Relacionados:**  
+  A API permite gerenciar relações entre equipamentos, setores, técnicos, peças e ordens de manutenção.
+
+- **Documentação Interativa:**  
+  Acesse a documentação da API via Swagger (`/swagger/`) ou Redoc (`/redoc/`).
+
+### Como Usar a API
+
+1. **Obtenha o token JWT:**  
+   Faça uma requisição POST para `/api/token/` enviando `username` e `password`.  
+   Exemplo usando `curl`:
+   ```
+   curl -X POST http://localhost:8000/api/token/ -d "username=seu_usuario&password=sua_senha"
+   ```
+
+2. **Acesse rotas protegidas:**  
+   Envie o token JWT no header das requisições:
+   ```
+   Authorization: Bearer <seu_token>
+   ```
+
+3. **Renove o token:**  
+   Quando o token expirar, use `/api/token/refresh/` com o refresh token para obter um novo.
+
+### Documentação da API
+
+- [Swagger UI](http://localhost:8000/swagger/)
+- [Redoc](http://localhost:8000/redoc/)
+
+
 ## Link do vídeo 
 
-LINK:[Trabalho Final WEB I](https://youtu.be/K3mj4tiFAeQ)
+LINK:[Trabalho Final WEB I]()
+
+Se precisar de exemplos de requisições ou integração com cliente mobile, consulte a documentação da API ou entre em contato com os desenvolvedores.
