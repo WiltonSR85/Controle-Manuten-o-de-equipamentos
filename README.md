@@ -2,7 +2,7 @@
 
 ## Objetivo do Projeto
 
-O projeto foi proposto pelo professor Carlos Anderson, do Instituto Federal Baiano – _Campus_ Guanambi, como requisito da disciplina de Laboratório de Programação Web I, integrante do curso de Análise e Desenvolvimento de Sistemas.
+O projeto foi proposto pelo professor Carlos Anderson, do Instituto Federal Baiano – _Campus_ Guanambi, como requisito da disciplina de Laboratório de Programação Web II, integrante do curso de Análise e Desenvolvimento de Sistemas.
 
 A proposta consiste no desenvolvimento de um sistema Web utilizando o framework Django. A equipe composta pelos integrantes Álex Silva Costa, Luísa Mel Almeida Martins e Wilton Silva Rodrigues, optou pelo desenvolvimento de um sistema Web de **controle de manutenção de equipamentos** em uma instituição.
 
