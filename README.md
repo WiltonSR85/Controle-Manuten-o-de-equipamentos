@@ -102,6 +102,6 @@ O projeto expõe uma API RESTful completa e segura, desenvolvida com Django Rest
 
 ## Link do vídeo 
 
-LINK:[Trabalho Final WEB I](https://youtu.be/hX5Ev-Yw5oA?si=jidtAhJRKytsO1Iv)
+LINK:[Trabalho Final WEB II](https://youtu.be/hX5Ev-Yw5oA?si=jidtAhJRKytsO1Iv)
 
 Se precisar de exemplos de requisições ou integração com cliente mobile, consulte a documentação da API ou entre em contato com os desenvolvedores.
